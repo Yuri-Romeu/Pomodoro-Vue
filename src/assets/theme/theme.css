@@ -1,0 +1,30 @@
+:root {
+     /* cores principais */
+     --color-primary: #f6f8f8;
+     --color-secondary: #90f686;
+
+     /* fundo */
+     --color-bg: #0f1115;
+     --color-bg-secondary: #25292c;
+     --color-bg-input: #3f4045;
+
+     /* fontes */
+     --font-primary: 'Inter', sans-serif;
+     --font-secondary: 'Roboto Mono', monospace;
+}
+
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+
+body {
+     background: var(--color-bg);
+     font-family: var(--font-primary);
+     color: var(--color-primary);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+}
