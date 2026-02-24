@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-
-type Task = {
-     id: number;
-     title: string;
-     done: boolean;
-};
+import { Task } from '../types';
 
 const props = defineProps<{ amount: Task[] }>();
 

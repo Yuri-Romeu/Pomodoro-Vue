@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import TasksAmount from './components/tasksAmount.vue';
 import Timer from './components/timer.vue';
 import TimerControls from './components/timerControls.vue';
+import TaskList from './components/taskList.vue';
 
 let tarefas = ref([
      {
@@ -35,7 +36,12 @@ let tarefas = ref([
 
                     <TimerControls />
                </section>
-               <section class="tasks"></section>
+
+               <section class="tasks">
+                    <h1 class="subTitle">Tasks List:</h1>
+
+                    <TaskList :tasks="tarefas" />
+               </section>
           </div>
      </main>
 </template>
@@ -64,11 +70,16 @@ main {
 }
 
 .container .tasks {
-     background-color: green;
+     margin-top: 40px;
 }
 
 .title {
      font-size: 24px;
+     font-weight: 500;
+}
+
+.subTitle {
+     font-size: 18px;
      font-weight: 500;
 }
 </style>
