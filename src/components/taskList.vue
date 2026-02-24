@@ -18,10 +18,26 @@ defineProps<{ tasks: Task[] }>();
 <style scoped>
 .containerTaskList {
      margin: 20px;
+     flex: 1;
+     min-height: 0;
+     overflow-y: auto;
+}
+
+ol {
+     list-style: decimal;
+     list-style-position: inside;
+     padding-left: 4px;
 }
 
 li {
      margin: 20px 0;
+}
+
+li:hover hr,
+li:hover {
+     border-color: var(--color-secondary);
+     opacity: 1;
+     cursor: pointer;
 }
 
 hr {

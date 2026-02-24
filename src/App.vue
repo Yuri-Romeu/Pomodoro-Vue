@@ -4,6 +4,7 @@ import TasksAmount from './components/tasksAmount.vue';
 import Timer from './components/timer.vue';
 import TimerControls from './components/timerControls.vue';
 import TaskList from './components/taskList.vue';
+import AddTask from './components/addTask.vue';
 
 let tarefas = ref([
      {
@@ -19,6 +20,16 @@ let tarefas = ref([
      {
           id: 3,
           title: 'Estudar Angular',
+          done: false,
+     },
+     {
+          id: 4,
+          title: 'Estudar Svelte',
+          done: false,
+     },
+     {
+          id: 5,
+          title: 'Estudar Flutter',
           done: false,
      },
 ]);
@@ -41,6 +52,8 @@ let tarefas = ref([
                     <h1 class="subTitle">Tasks List:</h1>
 
                     <TaskList :tasks="tarefas" />
+
+                    <AddTask />
                </section>
           </div>
      </main>
@@ -71,6 +84,10 @@ main {
 
 .container .tasks {
      margin-top: 40px;
+     display: flex;
+     flex-direction: column;
+     height: 100%;
+     min-height: 0;
 }
 
 .title {
