@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import TasksAmount from './components/tasksAmount.vue';
 import Timer from './components/timer.vue';
+import TimerControls from './components/timerControls.vue';
 
 let tarefas = ref([
      {
@@ -31,6 +32,8 @@ let tarefas = ref([
                     <TasksAmount :amount="tarefas" />
 
                     <Timer />
+
+                    <TimerControls />
                </section>
                <section class="tasks"></section>
           </div>

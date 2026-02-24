@@ -40,7 +40,7 @@ const timer = computed(() => {
 .containerTimer p {
      font-size: 18px;
      font-weight: 300;
-     opacity: 0.8;
+     color: var(--color-quaternary);
      margin-top: 10px;
 }
 </style>
