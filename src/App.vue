@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import TasksAmount from './components/tasksAmount.vue';
+import Timer from './components/timer.vue';
+
 let tarefas = ref([
      {
           id: 1,
@@ -24,7 +26,14 @@ let tarefas = ref([
      <main>
           <h1 class="title">Pomodoro - Timer</h1>
 
-          <TasksAmount :amount="tarefas" />
+          <div class="container">
+               <section class="timer">
+                    <TasksAmount :amount="tarefas" />
+
+                    <Timer />
+               </section>
+               <section class="tasks"></section>
+          </div>
      </main>
 </template>
 
@@ -35,6 +44,24 @@ main {
      border-radius: 10px;
      background-color: var(--color-bg-secondary);
      padding: 30px;
+}
+
+.container {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     height: 90%;
+     margin: 10px 0;
+}
+
+.container .timer {
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     margin-top: 20px;
+}
+
+.container .tasks {
+     background-color: green;
 }
 
 .title {
