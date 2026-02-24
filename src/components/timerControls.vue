@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Play, Pause, Save } from 'lucide-vue-next';
+
+const emit = defineEmits(['increment', 'decrement']);
 </script>
 
 <template>
@@ -16,11 +18,11 @@ import { Play, Pause, Save } from 'lucide-vue-next';
                <Save color="var(--color-quaternary)" />
           </button>
 
-          <button class="timerControlsButton">
+          <button class="timerControlsButton" @click="emit('increment')">
                <span>+ 1</span>
           </button>
 
-          <button class="timerControlsButton">
+          <button class="timerControlsButton" @click="emit('decrement')">
                <span>- 1</span>
           </button>
      </div>

@@ -1,10 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import TasksAmount from './components/tasksAmount.vue';
 import Timer from './components/timer.vue';
 import TimerControls from './components/timerControls.vue';
 import TaskList from './components/taskList.vue';
 import AddTask from './components/addTask.vue';
+
+let seconds = ref(0);
+let minutes = ref(0);
+
+const timer = computed(() => {
+     return `${String(minutes.value).padStart(2, '0')}:${String(seconds.value).padStart(2, '0')}`;
+});
+
+function increment() {
+     if (minutes.value >= 59) return;
+     minutes.value++;
+}
+
+function decrement() {
+     if (minutes.value <= 0) return;
+     minutes.value--;
+}
 
 let tarefas = ref([
      {
@@ -20,7 +37,7 @@ let tarefas = ref([
      {
           id: 3,
           title: 'Estudar Angular',
-          done: false,
+          done: true,
      },
      {
           id: 4,
@@ -43,9 +60,9 @@ let tarefas = ref([
                <section class="timer">
                     <TasksAmount :amount="tarefas" />
 
-                    <Timer />
+                    <Timer :time="timer" />
 
-                    <TimerControls />
+                    <TimerControls @increment="increment" @decrement="decrement" />
                </section>
 
                <section class="tasks">

@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-let seconds = ref(0);
-let minutes = ref(0);
-
-const timer = computed(() => {
-     return `${String(minutes.value).padStart(2, '0')}:${String(seconds.value).padStart(2, '0')}`;
-});
+defineProps<{ time: string }>();
 </script>
 
 <template>
      <div class="containerTimer">
-          <h1>{{ timer }}</h1>
+          <h1>{{ time }}</h1>
           <p>Study Time</p>
      </div>
 </template>

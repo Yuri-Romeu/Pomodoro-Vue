@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Task } from '../types';
+import { CircleCheck } from 'lucide-vue-next';
 
 defineProps<{ tasks: Task[] }>();
 </script>
@@ -7,8 +8,14 @@ defineProps<{ tasks: Task[] }>();
 <template>
      <div class="containerTaskList">
           <ol>
-               <li v-for="{ title, id } in tasks" :key="id">
+               <li v-for="{ title, id, done } in tasks" :key="id">
                     {{ title }}
+                    <CircleCheck
+                         :size="20"
+                         class="checkIcon"
+                         color="var(--color-secondary)"
+                         v-if="done === true"
+                    />
                     <hr />
                </li>
           </ol>
@@ -31,6 +38,11 @@ ol {
 
 li {
      margin: 20px 0;
+}
+
+.checkIcon {
+     vertical-align: middle;
+     margin-left: 8px;
 }
 
 li:hover hr,
