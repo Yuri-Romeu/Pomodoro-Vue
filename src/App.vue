@@ -1,5 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
+import TasksAmount from './components/tasksAmount.vue';
 let tarefas = ref([
      {
           id: 1,
@@ -22,6 +23,8 @@ let tarefas = ref([
 <template>
      <main>
           <h1 class="title">Pomodoro - Timer</h1>
+
+          <TasksAmount :amount="tarefas" />
      </main>
 </template>
 

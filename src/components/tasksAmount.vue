@@ -1,0 +1,35 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+
+type Task = {
+     id: number;
+     title: string;
+     done: boolean;
+};
+
+const props = defineProps<{ amount: Task[] }>();
+
+const completed = computed(() => props.amount.filter(task => task.done).length);
+</script>
+
+<template>
+     <div>
+          <p>Tarefas ({{ completed }} / {{ amount.length }})</p>
+     </div>
+</template>
+
+<style scoped>
+div {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 140px;
+     height: 26px;
+     border-radius: 20px;
+     border: 2px solid var(--color-bg-input);
+
+     p {
+          font-size: 13px;
+     }
+}
+</style>
