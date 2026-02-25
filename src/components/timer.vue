@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const props = defineProps<{ time: string }>();
+const props = defineProps<{ time: string; taskTitle: string }>();
 </script>
 
 <template>
      <div class="containerTimer">
           <h1>{{ time }}</h1>
-          <p>Study Time</p>
+          <p>{{ taskTitle }}</p>
      </div>
 </template>
 

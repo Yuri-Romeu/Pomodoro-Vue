@@ -10,6 +10,7 @@ let seconds = ref(0);
 let minutes = ref(0);
 const isRunning = ref(false);
 let intervalId: ReturnType<typeof setInterval> | null = null;
+let taskTitle = ref('(Selecione uma tarefa)');
 
 const timer = computed(() => {
      return `${String(minutes.value).padStart(2, '0')}:${String(seconds.value).padStart(2, '0')}`;
@@ -18,6 +19,7 @@ const timer = computed(() => {
 function startTimer() {
      if (isRunning.value) return;
      if (minutes.value === 0 && seconds.value === 0) return;
+     if (taskTitle.value === '(Selecione uma tarefa)') return alert('Selecione uma tarefa');
 
      isRunning.value = true;
 
@@ -30,6 +32,8 @@ function startTimer() {
           }
 
           if (minutes.value === 0 && seconds.value === 0) {
+               tarefas.value.find(task => task.title === taskTitle.value).done = true;
+               taskTitle.value = '(Tarefa já feita)';
                stop();
           }
      }, 1000);
@@ -60,6 +64,12 @@ function decrement() {
      if (isRunning.value) return;
      if (minutes.value <= 0) return;
      minutes.value--;
+}
+
+function taskSelected(id: number) {
+     const task = tarefas.value.find(task => task.id === id);
+     if (task.done) return (taskTitle.value = '(Tarefa já feita)');
+     taskTitle.value = task.title;
 }
 
 let tarefas = ref([
@@ -99,7 +109,7 @@ let tarefas = ref([
                <section class="timer">
                     <TasksAmount :amount="tarefas" />
 
-                    <Timer :time="timer" />
+                    <Timer :time="timer" :task-title="taskTitle" />
 
                     <TimerControls
                          @increment="increment"
@@ -113,7 +123,7 @@ let tarefas = ref([
                <section class="tasks">
                     <h1 class="subTitle">Tasks List:</h1>
 
-                    <TaskList :tasks="tarefas" />
+                    <TaskList :tasks="tarefas" @title="taskSelected" />
 
                     <AddTask />
                </section>

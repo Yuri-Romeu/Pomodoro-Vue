@@ -3,12 +3,13 @@ import { Task } from '../types';
 import { CircleCheck } from 'lucide-vue-next';
 
 defineProps<{ tasks: Task[] }>();
+const emit = defineEmits(['title']);
 </script>
 
 <template>
      <div class="containerTaskList">
           <ol>
-               <li v-for="{ title, id, done } in tasks" :key="id">
+               <li v-for="{ title, id, done } in tasks" :key="id" @click="emit('title', id)">
                     {{ title }}
                     <CircleCheck
                          :size="20"
