@@ -102,6 +102,16 @@ npm run build
 npm run preview
 ```
 
+## Projeto Online
+
+Você pode acessar a versão publicada em produção aqui:
+
+<p>
+  <a href="https://pomodoro-vue-gamma.vercel.app/" target="_blank" rel="noopener noreferrer">
+    https://pomodoro-vue-gamma.vercel.app/
+  </a>
+</p>
+
 ## Como Usar
 
 1. Adicione uma ou mais tarefas.
