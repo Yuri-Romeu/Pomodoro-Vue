@@ -19,7 +19,8 @@ const timer = computed(() => {
 function startTimer() {
      if (isRunning.value) return;
      if (minutes.value === 0 && seconds.value === 0) return;
-     if (taskTitle.value === '(Selecione uma tarefa)') return alert('Selecione uma tarefa');
+     if (taskTitle.value === '(Selecione uma tarefa)' || taskTitle.value === '(Tarefa já feita)')
+          return alert('Selecione uma tarefa');
 
      isRunning.value = true;
 
@@ -70,6 +71,15 @@ function taskSelected(id: number) {
      const task = tarefas.value.find(task => task.id === id);
      if (task.done) return (taskTitle.value = '(Tarefa já feita)');
      taskTitle.value = task.title;
+}
+
+function addTask(title: string) {
+     const newId = tarefas.value.length ? Math.max(...tarefas.value.map(t => t.id)) + 1 : 1;
+     tarefas.value.push({
+          id: newId,
+          title,
+          done: false,
+     });
 }
 
 let tarefas = ref([
@@ -125,7 +135,7 @@ let tarefas = ref([
 
                     <TaskList :tasks="tarefas" @title="taskSelected" />
 
-                    <AddTask />
+                    <AddTask @add="addTask" />
                </section>
           </div>
      </main>

@@ -1,10 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+const emit = defineEmits(['add']);
+
+const newTask = ref('');
+
+function addTask() {
+     if (!newTask.value.trim()) return;
+     emit('add', newTask.value);
+     newTask.value = '';
+}
+</script>
 
 <template>
      <div class="addTask">
-          <input type="text" placeholder="Add new task..." />
+          <input type="text" placeholder="Add new task..." v-model="newTask" />
           <div class="actions">
-               <button>Add</button>
+               <button @click="addTask">Add</button>
           </div>
      </div>
 </template>
