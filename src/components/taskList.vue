@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { Task } from '../types';
-import { CircleCheck } from 'lucide-vue-next';
+import { Task } from '../composables/useTasks';
+import { CircleCheck, Trash } from 'lucide-vue-next';
 
 defineProps<{ tasks: Task[] }>();
-const emit = defineEmits(['title']);
+
+const emit = defineEmits<{
+     (e: 'title', id: number): void;
+     (e: 'delete', id: number): void;
+}>();
 </script>
 
 <template>
@@ -16,6 +20,12 @@ const emit = defineEmits(['title']);
                          class="checkIcon"
                          color="var(--color-secondary)"
                          v-if="done === true"
+                    />
+                    <Trash
+                         :size="20"
+                         class="closeIcon"
+                         color="red"
+                         @click.stop="emit('delete', id)"
                     />
                     <hr />
                </li>
@@ -48,7 +58,14 @@ li {
      margin-left: 8px;
 }
 
+.closeIcon {
+     vertical-align: middle;
+     margin-left: 8px;
+     opacity: 0;
+}
+
 li:hover hr,
+li:hover .closeIcon,
 li:hover {
      border-color: var(--color-secondary);
      opacity: 1;

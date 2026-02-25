@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Task } from '../types';
+import { Task } from '../composables/useTasks';
 
 const props = defineProps<{ amount: Task[] }>();
 

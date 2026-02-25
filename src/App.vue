@@ -5,6 +5,8 @@ import Timer from './components/timer.vue';
 import TimerControls from './components/timerControls.vue';
 import TaskList from './components/taskList.vue';
 import AddTask from './components/addTask.vue';
+import { useTasks } from './composables/useTasks';
+const { tasks, addTask, getTaskById, markAsDone, removeTask } = useTasks();
 
 let seconds = ref(0);
 let minutes = ref(0);
@@ -33,7 +35,7 @@ function startTimer() {
           }
 
           if (minutes.value === 0 && seconds.value === 0) {
-               tarefas.value.find(task => task.title === taskTitle.value).done = true;
+               markAsDone(taskTitle.value);
                taskTitle.value = '(Tarefa já feita)';
                stop();
           }
@@ -68,48 +70,16 @@ function decrement() {
 }
 
 function taskSelected(id: number) {
-     const task = tarefas.value.find(task => task.id === id);
-     if (task.done) return (taskTitle.value = '(Tarefa já feita)');
+     const task = getTaskById(id);
+     if (!task) return;
+
+     if (task.done) {
+          taskTitle.value = '(Tarefa já feita)';
+          return;
+     }
+
      taskTitle.value = task.title;
 }
-
-function addTask(title: string) {
-     if (tarefas.value.find(task => task.title === title)) return alert('Tarefa duplicada');
-     const newId = tarefas.value.length ? Math.max(...tarefas.value.map(t => t.id)) + 1 : 1;
-     tarefas.value.push({
-          id: newId,
-          title,
-          done: false,
-     });
-}
-
-let tarefas = ref([
-     {
-          id: 1,
-          title: 'Estudar Vue',
-          done: false,
-     },
-     {
-          id: 2,
-          title: 'Estudar React',
-          done: true,
-     },
-     {
-          id: 3,
-          title: 'Estudar Angular',
-          done: true,
-     },
-     {
-          id: 4,
-          title: 'Estudar Svelte',
-          done: false,
-     },
-     {
-          id: 5,
-          title: 'Estudar Flutter',
-          done: false,
-     },
-]);
 </script>
 
 <template>
@@ -118,7 +88,7 @@ let tarefas = ref([
 
           <div class="container">
                <section class="timer">
-                    <TasksAmount :amount="tarefas" />
+                    <TasksAmount :amount="tasks" />
 
                     <Timer :time="timer" :task-title="taskTitle" />
 
@@ -134,7 +104,7 @@ let tarefas = ref([
                <section class="tasks">
                     <h1 class="subTitle">Tasks List:</h1>
 
-                    <TaskList :tasks="tarefas" @title="taskSelected" />
+                    <TaskList :tasks="tasks" @title="taskSelected" @delete="removeTask" />
 
                     <AddTask @add="addTask" />
                </section>

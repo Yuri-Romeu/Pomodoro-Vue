@@ -1,21 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-const emit = defineEmits(['add']);
+const emit = defineEmits<{ (e: 'add', title: string): void }>();
 
-const newTask = ref('');
+const title = ref('');
 
-function addTask() {
-     if (!newTask.value.trim()) return;
-     emit('add', newTask.value);
-     newTask.value = '';
+function submit() {
+     if (!title.value.trim()) return;
+     emit('add', title.value);
+     title.value = '';
 }
 </script>
 
 <template>
      <div class="addTask">
-          <input type="text" placeholder="Add new task..." v-model="newTask" />
+          <input
+               type="text"
+               placeholder="Add new task..."
+               v-model="title"
+               @keydown.enter="submit"
+          />
           <div class="actions">
-               <button @click="addTask">Add</button>
+               <button @click="submit">Add</button>
           </div>
      </div>
 </template>
