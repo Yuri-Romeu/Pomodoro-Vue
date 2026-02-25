@@ -31,13 +31,17 @@ const emit = defineEmits(['increment', 'decrement', 'play', 'pause', 'reset']);
 <style scoped>
 .timerControlsContainer {
      display: flex;
-     gap: 20px;
-     margin-top: 26px;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: clamp(10px, 2vw, 20px);
+     margin-top: 22px;
+     width: 100%;
+     max-width: 360px;
 }
 
 .timerControlsButton {
-     width: 50px;
-     height: 50px;
+     width: clamp(44px, 9vw, 50px);
+     height: clamp(44px, 9vw, 50px);
      background-color: transparent;
      border-radius: 50%;
      border: 2px solid var(--color-secondary);
@@ -48,8 +52,15 @@ const emit = defineEmits(['increment', 'decrement', 'play', 'pause', 'reset']);
 }
 
 .timerControlsButton span {
-     font-size: 18px;
+     font-size: clamp(14px, 2.8vw, 18px);
      color: var(--color-quaternary);
      font-weight: 700;
+}
+
+@media (max-width: 560px) {
+     .timerControlsContainer {
+          max-width: 280px;
+          margin-top: 18px;
+     }
 }
 </style>

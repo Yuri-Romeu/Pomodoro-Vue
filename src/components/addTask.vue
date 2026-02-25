@@ -22,15 +22,15 @@ function addTask() {
 
 <style scoped>
 .addTask {
-     width: 240px;
+     width: min(100%, 280px);
      margin-top: auto;
-     margin-bottom: 60px;
+     margin-bottom: clamp(14px, 5vh, 40px);
      margin-left: 20px;
 }
 
 input {
      width: 100%;
-     padding: 10px;
+     padding: 10px 12px;
      border-radius: 4px;
      background-color: var(--color-bg-input);
      color: var(--color-primary);
@@ -52,5 +52,12 @@ button {
      border: none;
      cursor: pointer;
      font-weight: 500;
+}
+
+@media (max-width: 560px) {
+     .addTask {
+          margin-left: 0;
+          margin-bottom: 0;
+     }
 }
 </style>

@@ -18,14 +18,17 @@ const completed = computed(() => props.amount.filter(task => task.done).length);
      display: flex;
      justify-content: center;
      align-items: center;
-     width: 140px;
-     height: 26px;
+     width: fit-content;
+     min-width: 140px;
+     height: 30px;
+     padding: 0 12px;
      border-radius: 20px;
      margin: 10px 0;
      border: 2px solid var(--color-bg-input);
 }
 
 p {
-     font-size: 13px;
+     font-size: clamp(12px, 2.4vw, 13px);
+     white-space: nowrap;
 }
 </style>

@@ -74,6 +74,7 @@ function taskSelected(id: number) {
 }
 
 function addTask(title: string) {
+     if (tarefas.value.find(task => task.title === title)) return alert('Tarefa duplicada');
      const newId = tarefas.value.length ? Math.max(...tarefas.value.map(t => t.id)) + 1 : 1;
      tarefas.value.push({
           id: newId,
@@ -143,42 +144,76 @@ let tarefas = ref([
 
 <style scoped>
 main {
-     width: 900px;
-     height: 550px;
-     border-radius: 10px;
+     width: min(900px, 100%);
+     min-height: 550px;
+     max-height: calc(100vh - 32px);
+     border-radius: 12px;
      background-color: var(--color-bg-secondary);
-     padding: 30px;
+     padding: clamp(16px, 3vw, 30px);
+     display: flex;
+     flex-direction: column;
 }
 
 .container {
      display: grid;
-     grid-template-columns: 1fr 1fr;
-     height: 90%;
-     margin: 10px 0;
+     grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+     gap: clamp(20px, 3vw, 36px);
+     flex: 1;
+     min-height: 0;
+     margin-top: 12px;
 }
 
 .container .timer {
      display: flex;
      align-items: center;
      flex-direction: column;
-     margin-top: 20px;
+     justify-content: flex-start;
+     min-width: 0;
 }
 
 .container .tasks {
-     margin-top: 40px;
      display: flex;
      flex-direction: column;
      height: 100%;
      min-height: 0;
+     min-width: 0;
 }
 
 .title {
-     font-size: 24px;
+     font-size: clamp(20px, 2.4vw, 24px);
      font-weight: 500;
 }
 
 .subTitle {
-     font-size: 18px;
+     font-size: clamp(16px, 2vw, 18px);
      font-weight: 500;
+}
+
+@media (max-width: 900px) {
+     main {
+          min-height: unset;
+          max-height: none;
+     }
+
+     .container {
+          grid-template-columns: 1fr;
+          gap: 20px;
+     }
+
+     .container .tasks {
+          min-height: 260px;
+     }
+}
+
+@media (max-width: 560px) {
+     main {
+          padding: 16px;
+          border-radius: 8px;
+     }
+
+     .container {
+          gap: 16px;
+          margin-top: 8px;
+     }
 }
 </style>
