@@ -8,17 +8,56 @@ import AddTask from './components/addTask.vue';
 
 let seconds = ref(0);
 let minutes = ref(0);
+const isRunning = ref(false);
+let intervalId: ReturnType<typeof setInterval> | null = null;
 
 const timer = computed(() => {
      return `${String(minutes.value).padStart(2, '0')}:${String(seconds.value).padStart(2, '0')}`;
 });
 
+function startTimer() {
+     if (isRunning.value) return;
+     if (minutes.value === 0 && seconds.value === 0) return;
+
+     isRunning.value = true;
+
+     intervalId = setInterval(() => {
+          if (seconds.value === 0) {
+               seconds.value = 59;
+               minutes.value--;
+          } else {
+               seconds.value--;
+          }
+
+          if (minutes.value === 0 && seconds.value === 0) {
+               stop();
+          }
+     }, 1000);
+}
+
+function stop() {
+     isRunning.value = false;
+
+     if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+     }
+}
+
+function reset() {
+     stop();
+     minutes.value = 0;
+     seconds.value = 0;
+}
+
 function increment() {
+     if (isRunning.value) return;
      if (minutes.value >= 59) return;
      minutes.value++;
 }
 
 function decrement() {
+     if (isRunning.value) return;
      if (minutes.value <= 0) return;
      minutes.value--;
 }
@@ -62,7 +101,13 @@ let tarefas = ref([
 
                     <Timer :time="timer" />
 
-                    <TimerControls @increment="increment" @decrement="decrement" />
+                    <TimerControls
+                         @increment="increment"
+                         @decrement="decrement"
+                         @play="startTimer"
+                         @pause="stop"
+                         @reset="reset"
+                    />
                </section>
 
                <section class="tasks">

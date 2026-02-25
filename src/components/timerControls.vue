@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { Play, Pause, Save } from 'lucide-vue-next';
+import { Play, Pause, RotateCcw } from 'lucide-vue-next';
 
-const emit = defineEmits(['increment', 'decrement']);
+const emit = defineEmits(['increment', 'decrement', 'play', 'pause', 'reset']);
 </script>
 
 <template>
      <div class="timerControlsContainer">
-          <button class="timerControlsButton">
+          <button class="timerControlsButton" @click="emit('play')">
                <Play color="var(--color-quaternary)" />
           </button>
 
-          <button class="timerControlsButton">
+          <button class="timerControlsButton" @click="emit('pause')">
                <Pause color="var(--color-quaternary)" />
           </button>
 
-          <button class="timerControlsButton">
-               <Save color="var(--color-quaternary)" />
+          <button class="timerControlsButton" @click="emit('reset')">
+               <RotateCcw color="var(--color-quaternary)" />
           </button>
 
           <button class="timerControlsButton" @click="emit('increment')">
