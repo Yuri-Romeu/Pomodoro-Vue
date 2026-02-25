@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import alarmSound from './assets/audio/minecraft-rare-achievements-sound-louay-bekakra-youtube_D5hbJYsF.mp3';
+const alarmAudio = new Audio(alarmSound);
 import { ref, computed } from 'vue';
 import TasksAmount from './components/tasksAmount.vue';
 import Timer from './components/timer.vue';
@@ -17,6 +19,13 @@ let taskTitle = ref('(Selecione uma tarefa)');
 const timer = computed(() => {
      return `${String(minutes.value).padStart(2, '0')}:${String(seconds.value).padStart(2, '0')}`;
 });
+
+function playAlarm() {
+     alarmAudio.currentTime = 0;
+     alarmAudio.play().catch(() => {
+          console.warn('Usuário não interagiu ainda');
+     });
+}
 
 function startTimer() {
      if (isRunning.value) return;
@@ -37,6 +46,7 @@ function startTimer() {
           if (minutes.value === 0 && seconds.value === 0) {
                markAsDone(taskTitle.value);
                taskTitle.value = '(Tarefa já feita)';
+               playAlarm();
                stop();
           }
      }, 1000);
